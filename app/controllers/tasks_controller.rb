@@ -15,6 +15,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:succes] = 'タスク登録完了'
+      redirect_to @task
     else
       flash.now[:danger] = 'タスクが登録できませんでした'
       render :new
