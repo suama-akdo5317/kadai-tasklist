@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+
   
   def index
       @tasks = Task.all
@@ -38,7 +39,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    
     flash[:succes] = 'Task は正常に削除されました'
     redirect_to tasks_url
   end
