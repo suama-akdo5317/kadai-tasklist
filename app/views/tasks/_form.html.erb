@@ -1,4 +1,5 @@
 <%= form_with(model: task, local: true) do |f| %>
+  <%#　ここの@task はこのままでいいのか  %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -8,12 +9,21 @@
       </ul>
     </div>
   <% end %>
-  
+
+<%
+=begin
+%>
   <%= f.label :status, '進捗(10字以内)' %>
   <%= f.text_field :status %>
   
   <%= f.label :content, 'タスク' %>
   <%= f.text_field :content %>
+<%
+=end
+%>
+
+  <%= f.label :user_task, '進捗(10字以内)' %>
+  <%= f.text_field :user_task %>
 
   <%= f.submit '投稿' %>
 <% end %>
