@@ -2,13 +2,14 @@
 
 <%= form_with(model: @task, local: true) do |f| %>
     <%= render 'layouts/error_messages', model: f.object %>
-
-  <%= f.label :status, '進捗' %>
+<p>
+  <%= f.label :status, 'Status:' %>
   <%= f.text_field :status %>
-
-  <%= f.label :content, 'ワーク' %>
+</p>
+<p>
+  <%= f.label :content, 'Task:' %>
   <%= f.text_field :content %>
-
+</p>
   <%= f.submit '更新' %>
 <% end %>
 

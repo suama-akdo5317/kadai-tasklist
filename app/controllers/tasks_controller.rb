@@ -1,14 +1,11 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:show,:update, :destroy]
+  before_action :correct_user, only: [:show, :update, :edit, :destroy]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   
   def index
-    if logged_in?
-      @task = current_user.tasks.build  # form_with 用
       @tasks = current_user.tasks.order(id: :desc).page(params[:page])
-    end
   end
 
   def show
@@ -21,11 +18,11 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      flash[:succes] = 'タスク登録完了'
+      flash[:succes] = 'Task登録完了'
       redirect_to root_url
     else
     @tasks = current_user.tasks.order(id: :desc).page(params[:page])
-    flash.now[:danger] = 'タスク投稿失敗'
+    flash.now[:danger] = 'Task投稿失敗'
     render 'tasks/index'
     end
   end
@@ -34,13 +31,13 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task= current_user.tasks.build(task_params)
+    @task.update(task_params)
     if @task.save
       flash[:success] = 'Task は正常に更新されました'
       redirect_to @task
     else
       @tasks = current_user.tasks.order(id: :desc).page(params[:page])
-      flash.now[:danger] = 'タスク投稿失敗'
+      flash.now[:danger] = 'Task投稿失敗'
       render :edit
     end
   end
