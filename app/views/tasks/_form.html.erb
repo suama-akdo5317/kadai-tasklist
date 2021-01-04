@@ -1,21 +1,14 @@
 <%= form_with(model: task, local: true) do |f| %>
   <%= render 'layouts/error_messages', model: f.object %>
-
-  <% if task.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-        <% task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<p>
   <%= f.label :status, 'Status:' %>
   <%= f.text_field :status %>
-
+</p>
+<p>
   <%= f.label :content, 'Task:' %>
   <%= f.text_field :content %>
-
+</p>
+<p>
   <%= f.submit '投稿' %>
+</p>
 <% end %>
