@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:show]
+  before_action :correct_user, only: [:show, :update, :edit, :destroy]
   
   def index
       @tasks = current_user.tasks.order(id: :desc).page(params[:page])
@@ -25,6 +25,29 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    @task.update(task_params)
+    if @task.save
+      flash[:success] = 'Task は正常に更新されました'
+      redirect_to @task
+    else
+      @tasks = current_user.tasks.order(id: :desc).page(params[:page])
+      flash.now[:danger] = 'Task投稿失敗'
+      render :edit
+    end
+  end
+
+  def destroy
+    if @task.user_id = current_user.id 
+      @task.destroy
+      flash[:succes] = 'Task は正常に削除されました'
+      redirect_to tasks_url
+    end
+  end
+  
   private
   
   def task_params
